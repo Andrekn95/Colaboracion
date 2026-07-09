@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - feature-* # Se ejecuta también en las ramas de trabajo de ambos
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          # Aquí simula la instalación de dependencias requeridas
+
+      - name: Validar Sintaxis del Proyecto
+        run: |
+          python -m compileall .
+          echo "✔ Proyecto validado y compilado exitosamente."
